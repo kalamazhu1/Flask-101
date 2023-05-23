@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<h2>Enter your name:</h2>
+
+<form id="nameForm">
+  <input type="text" id="name" name="name">
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<h2 id="greeting"></h2>
+
+<script>
+document.getElementById('nameForm').addEventListener('submit', function(event) {
+  // Prevent the form from submitting normally
+  event.preventDefault();
+
+  let name = document.getElementById('name').value;
+
+  // Store the name in local storage
+  localStorage.setItem('name', name);
+
+  // Display the greeting
+  document.getElementById('greeting').textContent = 'Welcome ' + name + '!';
+});
+
+// When the page loads, check if there's a name in local storage
+window.addEventListener('load', function() {
+  let name = localStorage.getItem('name');
+
+  if (name !== null) {
+    // If there is a name, fill in the form and display the greeting
+    document.getElementById('name').value = name;
+    document.getElementById('greeting').textContent = 'Welcome ' + name + '!';
+  }
+});
+</script>
+
+</body>
+</html>
